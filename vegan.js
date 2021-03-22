@@ -23,8 +23,8 @@ const veganCertificateScaper = new Promise(async (resolve, reject) => {
   try {
     const browser = await puppeteer.launch(
       { headless: true },
-      { args: ["--no-sandbox", "--disable-setuid-sandbox"] }
-      //{ ignoreDefaultArgs: ["--disable-extensions"] }
+      { args: ["--no-sandbox", "--disable-setuid-sandbox"] },
+      { ignoreDefaultArgs: ["--disable-extensions"] }
     );
     const page = await browser.newPage();
     await page.goto(certificate.link + "/companies-using-our-logo/");
