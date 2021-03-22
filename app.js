@@ -1,16 +1,11 @@
 const express = require("express");
-//const puppeteer = require("puppeteer");
 const app = express();
 const port = 3000;
 const veganCertificateScaper = require("./vegan");
 
 app.get("/", (req, res) => {
   res.setHeader("Content-Type", "application/JSON");
-  //   const browser = puppeteer.launch(
-  //     { headless: true },
-  //     { args: ["--no-sandbox", "--disable-setuid-sandbox"] }
-  //     //{ ignoreDefaultArgs: ["--disable-extensions"] }
-  //   );
+
   veganCertificateScaper
     .then((companies) => {
       /*Convert from array to string to return as a JSON */
