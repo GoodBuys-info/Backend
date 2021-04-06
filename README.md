@@ -6,7 +6,8 @@ Webscraping and Backend
   npm install
   
 ### To run:
-  node app.js
+  npm start
+  
   
  
 
