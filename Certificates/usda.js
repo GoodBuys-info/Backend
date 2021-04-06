@@ -23,7 +23,7 @@ var usdaCertificateScraper = new Promise(async (resolve, reject) => {
     results.push(certificate);
     let companiesInPage = [];
     for (let i = 0; i < 4561; i++) {
-      console.log("Scraping page " + (i + 1));
+      // console.log("Scraping page " + (i + 1));
 
       let newCompanies = await page.evaluate(() => {
         let companies = [];
