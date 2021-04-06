@@ -1,6 +1,7 @@
 const puppeteer = require("puppeteer");
 
-// This code will scrape all of the names of the USDA listed in the USDAS
+//
+//This code will scrape all of the names of the USDA listed in the USDAS
 // and output to console
 var usdaCertificateScraper = new Promise(async (resolve, reject) => {
   try {
