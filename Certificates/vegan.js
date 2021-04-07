@@ -1,8 +1,8 @@
 const puppeteer = require("puppeteer");
 
-/*  scrape all of the companies certified  of  listed under Certified Vegan*/
+/*  scrape all of the companies certified  of listed under Certified Vegan*/
 
-/*Scarpes the website at http://vegan.org/companies-using-our-logo/
+/* Scarpes the website at http://vegan.org/companies-using-our-logo/
     returns a Promise */
 const veganCertificateScraper = new Promise(async (resolve, reject) => {
   try {
