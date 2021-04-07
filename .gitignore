@@ -1,0 +1,3 @@
+node_modules
+node_modules/puppeteer/.local-chromium/win64-856583/chrome-win/chrome.dll
+node_modules/puppeteer/.local-chromium/win64-856583/chrome-win/interactive_ui_tests.exe
