@@ -15,7 +15,6 @@ app.get("/", (req, res) => {
 app.get("/:barcode", function (req, res, next) {
   console.log(req.params.barcode);
 
-  // barcodeLookup.scraper;
   // var barcode = req.params;
   // next(barcode);
 
@@ -29,7 +28,9 @@ app.listen(process.env.PORT || port, () => {
 
 app.param("barcode", function (req, res, next, barcode) {
   (async () => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
     const page = await browser.newPage();
     await page.goto("https://barcode-database.com/UPC/" + barcode);
 
