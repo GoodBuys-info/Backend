@@ -12,7 +12,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/:barcode", function (req, res, next) {
+app.get("/barcodes/:barcode", function (req, res, next) {
   console.log(req.params.barcode);
 
   // var barcode = req.params;
@@ -26,7 +26,7 @@ app.listen(process.env.PORT || port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
 
-app.param("barcode", function (req, res, next, barcode) {
+app.param("/barcodes/barcode", function (req, res, next, barcode) {
   (async () => {
     const browser = await puppeteer.launch({
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
