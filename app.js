@@ -5,7 +5,7 @@ const getAllCertificateScrapers = require("./allCertificateScrapers.js");
 
 const puppeteer = require("puppeteer");
 
-const barcodeLookup = require("./Barcodes/barcodeLookup");
+// const barcodeLookup = require("./Barcodes/barcodeLookup");
 app.get("/", (req, res) => {
   getAllCertificateScrapers.then((certificates) => {
     res.send(certificates);
