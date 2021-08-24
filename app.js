@@ -6,6 +6,8 @@ const veganCertificateScraper = require("./vegan");
 const betterCottonScraper = require("./betterCotton");
 const birdFriendlyScraper=require("./birdfriendlycofee");
 const blueAngelScraper=require("./blueAngel");
+const cornucopiaScraper=require("./cornucopiaScore");
+const audubonScraper=require("./audubon");
 
 app.get("/", (req, res) => {
   res.setHeader("Content-Type", "application/JSON");
@@ -17,11 +19,8 @@ app.get("/", (req, res) => {
   veganCertificateScraper
     .then((companies) => {
       /*Convert from array to string to return as a JSON */
-      // console.log(companies);
       var companiesString = JSON.stringify(companies);
       res.send(JSON.parse(companiesString));
-      //res.end();
-      //browser.close();
     })
     .catch((err) => {
       res.send(err);
@@ -45,11 +44,8 @@ app.get("/", (req, res) => {
   birdFriendlyScraper
   .then((companies) => {
     /*Convert from array to string to return as a JSON */
-    // console.log(companies);
     var companiesString = JSON.stringify(companies);
     res.send(JSON.parse(companiesString));
-    //res.end();
-    //browser.close();
   })
   .catch((err) => {
     res.send(err);
@@ -64,6 +60,28 @@ app.get("/", (req, res) => {
     res.send(JSON.parse(companiesString));
     //res.end();
     //browser.close();
+  })
+  .catch((err) => {
+    res.send(err);
+    res.end();
+  });
+
+  cornucopiaScraper
+  .then((companies) => {
+    /*Convert from array to string to return as a JSON */
+    var companiesString = JSON.stringify(companies);
+    res.send(JSON.parse(companiesString));
+  })
+  .catch((err) => {
+    res.send(err);
+    res.end();
+  });
+
+  audubonScraper
+  .then((companies) => {
+    /*Convert from array to string to return as a JSON */
+    var companiesString = JSON.stringify(companies);
+    res.send(JSON.parse(companiesString));
   })
   .catch((err) => {
     res.send(err);
