@@ -1,14 +1,5 @@
 const puppeteer = require("puppeteer");
 
-const certificate = {
-  name: "CarbonNeutral",
-  link: "http://www.verus-co2.com/index.html",
-  logo: "http://www.verus-co2.com/about.html",
-  desc:
-    "Our logo means the organization offset their entire carbon footprint from their product considering them Carbon Neutral.",
-};
-
-
 const carbonNeutral = new Promise(async (resolve, reject) => {
   try {
     const url="http://www.verus-co2.com/clientlist.html"
@@ -22,12 +13,24 @@ const carbonNeutral = new Promise(async (resolve, reject) => {
     await page.goto(url);
 
     var company = await page.evaluate(() => {
-      var companyList = document.querySelectorAll('.newsHeadline');
       var CompanyArray = [];
+      var certificate = {
+        name: "CarbonNeutral",
+        link: "http://www.verus-co2.com/index.html",
+        logo: "http://www.verus-co2.com/about.html",
+        desc:
+        "Our logo means the organization offset their entire carbon footprint from their product considering them Carbon Neutral.",
+        companies:[],
+      };
+      CompanyArray.push(certificate);
+
+      var companyList = document.querySelectorAll('#container td a');
       for (var i = 0; i < companyList.length; i++) {
-        CompanyArray[i] = {
-          companyName: companyList[i].innerText.trim(),
-        };
+        if(companyList[i].innerText.trim()!=''){
+          certificate.companies.push( {
+            companyName: companyList[i].innerText.trim(),
+          });
+        }
       }
       return CompanyArray;
     });
@@ -40,10 +43,5 @@ const carbonNeutral = new Promise(async (resolve, reject) => {
       return reject(err);
     }
   });
-
-carbonNeutral
-  .then((companies) => console.log(companies))
-  .catch((err) => console.error(err));
-
 
  module.exports = carbonNeutral;

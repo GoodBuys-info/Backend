@@ -1,14 +1,5 @@
 const puppeteer = require("puppeteer");
 
-const certificate = {
-  name: "BpiWorld",
-  link: "https://products.bpiworld.org/",
-  logo: "https://bpiworld.org/membership",
-  desc:
-    "Our logo ensures that products and packaging displaying the BPI logo have been independently tested and verified according to scientifically based standards.",
-};
-
-
 const bpiWorld = new Promise(async (resolve, reject) => {
   try {
     const url="https://products.bpiworld.org/?s=1&search=&category=0&type=2"
@@ -22,12 +13,22 @@ const bpiWorld = new Promise(async (resolve, reject) => {
     await page.goto(url);
 
     var company = await page.evaluate(() => {
-      var companyList = document.querySelectorAll('div[class="main-company-left"]> div:first-of-type');
       var CompanyArray = [];
+      var certificate = {
+        name: "BpiWorld",
+        link: "https://products.bpiworld.org/",
+        logo: "https://bpiworld.org/membership",
+        desc:
+          "Our logo ensures that products and packaging displaying the BPI logo have been independently tested and verified according to scientifically based standards.",
+        companies:[],
+      };
+      CompanyArray.push(certificate);
+
+      var companyList = document.querySelectorAll('div[class="main-company-left"]> div:first-of-type');
       for (var i = 0; i < companyList.length; i++) {
-        CompanyArray[i] = {
+        certificate.companies.push( {
           companyName: companyList[i].innerText.trim(),
-        };
+        });
       }
       return CompanyArray;
     });
@@ -40,10 +41,5 @@ const bpiWorld = new Promise(async (resolve, reject) => {
       return reject(err);
     }
   });
-
-bpiWorld
-  .then((companies) => console.log(companies))
-  .catch((err) => console.error(err));
-
 
  module.exports = bpiWorld;

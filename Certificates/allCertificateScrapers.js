@@ -7,6 +7,7 @@ const blueAngelScraper = require("./blueAngel");
 const cornucopiaScraper = require("./cornucopiaScore");
 const audubonScraper = require("./audubon");
 const ecolabelScraper = require("./ecolabel");
+const carbonNeutralScraper =require("./carbonNeutral");
 //const usdaCertificateScraper = require("./Certificates/usda");
 
 var answer = (function allScraper() {
@@ -72,6 +73,15 @@ var answer = (function allScraper() {
 
   scrapers.push(
     audubonScraper
+      .then((companies) => {
+        return companies;
+      })
+      .catch((err) => {
+        return err;
+      })
+  );
+  scrapers.push(
+    carbonNeutralScraper
       .then((companies) => {
         return companies;
       })
