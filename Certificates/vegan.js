@@ -56,9 +56,13 @@ const veganCertificateScraper = new Promise(async (resolve, reject) => {
     browser.close();
 
     return resolve(companies);
-  } catch (e) {
-    return reject(e);
+  } catch (err) {
+    return reject(err);
   }
 });
+
+veganCertificateScraper
+  .then((companies) => console.log(companies))
+  .catch((err) => console.error(err));
 
 module.exports = veganCertificateScraper;
