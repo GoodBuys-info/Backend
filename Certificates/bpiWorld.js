@@ -8,7 +8,7 @@ const bpiWorld = new Promise(async (resolve, reject) => {
     // open a new page
     var page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0);
-    // enter url in page
+ 
     let companies = [];
     await page.goto(url);
 

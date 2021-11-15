@@ -1,14 +1,5 @@
 const puppeteer = require("puppeteer");
 
-const certificate = {
-  name: "ClimateRegistry",
-  link: "https://www.theclimateregistry.org/",
-  logo: "https://www.theclimateregistry.org/programs-services/voluntary-reporting/climate-registered/",
-  desc:
-    "Our logo means the organization is empowered by climate registry to reduce carbon footprint.",
-};
-
-
 const climateRegistry = new Promise(async (resolve, reject) => {
   try {
     const url="https://www.theclimateregistry.org/our-members/list-of-members-profiles/"
@@ -17,17 +8,27 @@ const climateRegistry = new Promise(async (resolve, reject) => {
     // open a new page
     var page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0);
-    // enter url in page
     let companies = [];
     await page.goto(url);
 
     var company = await page.evaluate(() => {
-      var companyList = document.querySelectorAll('.fl a');
+      
       var CompanyArray = [];
+      var certificate = {
+        name: "ClimateRegistry",
+        link: "https://www.theclimateregistry.org/",
+        logo: "https://www.theclimateregistry.org/programs-services/voluntary-reporting/climate-registered/",
+        desc:
+          "Our logo means the organization is empowered by climate registry to reduce carbon footprint.",
+        companies:[],
+      };
+      CompanyArray.push(certificate);
+
+      var companyList = document.querySelectorAll('.fl a');
       for (var i = 0; i < companyList.length; i++) {
-        CompanyArray[i] = {
+       certificate.companies.push( {
           companyName: companyList[i].innerText.trim(),
-        };
+        });
       }
       return CompanyArray;
     });
@@ -40,10 +41,5 @@ const climateRegistry = new Promise(async (resolve, reject) => {
       return reject(err);
     }
   });
-
-climateRegistry
-  .then((companies) => console.log(companies))
-  .catch((err) => console.error(err));
-
 
  module.exports = climateRegistry;

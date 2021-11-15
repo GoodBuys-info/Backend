@@ -9,6 +9,7 @@ const birdfriendly = new Promise(async (resolve, reject) => {
     // enter url in page
     await page.goto(`https://nationalzoo.si.edu/migratory-birds/certified-coffee-importers`);
     let companies = [];
+    
     var company = await page.evaluate(() => {
 
       var CompanyArray = [];

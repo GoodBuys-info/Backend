@@ -8,8 +8,8 @@ const blueAngel = new Promise(async (resolve, reject) => {
     var page = await browser.newPage();
     // enter url in page
     await page.goto(`https://www.blauer-engel.de/en/products/company`);
-    let companies = [];
 
+    let companies = [];
     var company = await page.evaluate(() => {
       var CompanyArray = [];
       const certificate = {

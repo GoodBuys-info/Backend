@@ -36,7 +36,6 @@ const carbonNeutral = new Promise(async (resolve, reject) => {
     });
     companies = companies.concat(company);
     return resolve(companies);
-
   }
     catch (err) {
       // Catch and display errors
