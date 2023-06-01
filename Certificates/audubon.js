@@ -12,14 +12,26 @@ const audubon = new Promise(async (resolve, reject) => {
     const url =
       "https://directory.auduboninternational.org/directory?memberCategory=&city=&state=&country=&zipcode=&current_page=";
     // open the headless browser
-    var browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({
+      headless: false,
+      executablePath: "/opt/homebrew/bin/chromium",
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
+    const browserPath = await puppeteer.executablePath();
+    console.log("Chromium location:", browserPath);
     // open a new page
     var page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0);
+    // await page.goto(url);
+    // page.on("error", (err) => {
+    //   console.error("Error occurred:", err);
+    // });
+
+    // await browser.disconnect();
     // enter url in page
     let companies = [];
-    for (let i = 1; i < 38; i++) {
-      await page.goto(url + i);
+    for (let i = 1; i < ; i++) {
+      await page.goto(url + `${i}`);
 
       var company = await page.evaluate(() => {
         var companyList = document.querySelectorAll(

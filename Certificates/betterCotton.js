@@ -4,31 +4,47 @@ const certificate = {
   name: "Better Cotton Initiative",
   link: "https://bettercotton.org/",
   logo: "https://en.wikipedia.org/wiki/Better_Cotton_Initiative#/media/File:BCI-Logo.svg",
-  desc:
-    "Our logo means that you’re buying a majority cotton product, from a retailer or brand that is committed to sourcing Better Cotton and investing in BCI Farmers",
+  desc: "Our logo means that you’re buying a majority cotton product, from a retailer or brand that is committed to sourcing Better Cotton and investing in BCI Farmers",
 };
-
 
 const betterCotton = new Promise(async (resolve, reject) => {
   try {
+    const url = "https://bettercotton.org/find-members/";
     // open the headless browser
-    var browser = await puppeteer.launch({ headless: true });
+    var browser = await puppeteer.launch({
+      headless: false,
+      executablePath: "/opt/homebrew/bin/chromium",
+    });
     // open a new page
     var page = await browser.newPage();
     // enter url in page
-    await page.goto(`https://bettercotton.org/find-members/`);
     let companies = [];
-    var company = await page.evaluate(() => {
-      var companyList = document.querySelectorAll('div[class="box"]> h2');
-      var CompanyArray = [];
-      for (var i = 0; i < companyList.length; i++) {
-        CompanyArray[i] = {
-          companyName: companyList[i].innerText.trim(),
-        };
-      }
-      return CompanyArray;
-    });
-    companies = companies.concat(company);
+    for (let i = 1; i < 10; i++) {
+      await page.goto(url + `${i}`);
+
+      var company = await page.evaluate(() => {
+        var companyList = document.querySelectorAll("h3.card-title");
+        var CompanyArray = [];
+        for (var i = 0; i < companyList.length; i++) {
+          CompanyArray[i] = {
+            companyName: companyList[i].innerText.trim(),
+          };
+        }
+        return CompanyArray;
+      });
+      companies = companies.concat(company);
+    }
+    // var company = await page.evaluate(() => {
+    //   var companyList = document.querySelectorAll("h3.card-title");
+    //   var CompanyArray = [];
+    //   for (var i = 0; i < companyList.length; i++) {
+    //     CompanyArray[i] = {
+    //       companyName: companyList[i].innerText.trim(),
+    //     };
+    //   }
+    //   return CompanyArray;
+    // });
+    // companies = companies.concat(company);
     //console.dir(company);
     await browser.close();
     return resolve(companies);
@@ -43,6 +59,5 @@ const betterCotton = new Promise(async (resolve, reject) => {
 betterCotton
   .then((companies) => console.log(companies))
   .catch((err) => console.error(err));
-
 
 module.exports = betterCotton;

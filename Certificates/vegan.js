@@ -24,30 +24,33 @@ const veganCertificateScraper = new Promise(async (resolve, reject) => {
       results.push(certificate);
 
       let items = document.querySelectorAll(
-        "body > div.main-container > section.switchable.space--xxs.text-center > div > div > div.col-sm-8.col-md-7 > div > p "
+        "div.col-sm-12.article__body.post-content > article > h1"
       );
-      for (let i = 0; i < items.length; i++) {
-        certificate.companies.push({
-          companyName: items[i].innerText,
-          companyLinks:
-            items[i].querySelector("a") != null
-              ? items[i].querySelector("a").innerText
-              : " ",
-        });
-      }
+      certificate.companies.push({
+        companyName: items.querySelector("strong").innerText,
+      });
+      // for (let i = 0; i < items.length; i++) {
+      //   certificate.companies.push({
+      //     companyName: items[i].innerText,
+      //     companyLinks:
+      //       items[i].querySelector("a") != null
+      //         ? items[i].querySelector("a").innerText
+      //         : " ",
+      //   });
+      // }
 
-      items = document.querySelectorAll(
-        "body > div.main-container > section.switchable.space--xxs.text-center > div > div > div.col-sm-8.col-md-7 > div > div > div > p"
-      );
-      for (let i = 0; i < items.length; i++) {
-        certificate.companies.push({
-          companyName: items[i].innerText,
-          companyLinks:
-            items[i].querySelector("a") != null
-              ? items[i].querySelector("a").innerText
-              : " ",
-        });
-      }
+      // items = document.querySelectorAll(
+      //   "div.col-sm-12.article__body.post-content > article > p"
+      // );
+      // for (let i = 0; i < items.length; i++) {
+      //   certificate.companies.push({
+      //     companyName: items[i].innerText,
+      //     companyLinks:
+      //       items[i].querySelector("a") != null
+      //         ? items[i].querySelector("a").innerText
+      //         : " ",
+      //   });
+      // }
 
       return results;
     });
