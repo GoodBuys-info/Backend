@@ -4,8 +4,7 @@ const blueAngel = new Promise(async (resolve, reject) => {
   try {
     // open the headless browser
     var browser = await puppeteer.launch({
-      headless: false,
-      executablePath: "/opt/homebrew/bin/chromium",
+      headless: true,
     });
     // open a new page
     var page = await browser.newPage();
@@ -22,14 +21,12 @@ const blueAngel = new Promise(async (resolve, reject) => {
         desc: "Blue Angel is an environmental label organised by the federal government of Germany for the protection of people and the environment",
         companies: [],
       };
-      // ul.m-bep_az-list__items li a
       CompanyArray.push(certificate);
       var companyList = document.querySelectorAll(
         "ul.m-bep_az-list__items li a"
       );
 
       for (var i = 0; i < companyList.length; i++) {
-        // console.log(companyList[i].innerText.trim());
         certificate.companies.push({
           companyName: companyList[i].innerText.trim(),
         });

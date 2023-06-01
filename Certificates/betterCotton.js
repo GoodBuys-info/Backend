@@ -5,6 +5,7 @@ const certificate = {
   link: "https://bettercotton.org/",
   logo: "https://en.wikipedia.org/wiki/Better_Cotton_Initiative#/media/File:BCI-Logo.svg",
   desc: "Our logo means that you’re buying a majority cotton product, from a retailer or brand that is committed to sourcing Better Cotton and investing in BCI Farmers",
+  companies: [],
 };
 
 const betterCotton = new Promise(async (resolve, reject) => {
@@ -12,8 +13,7 @@ const betterCotton = new Promise(async (resolve, reject) => {
     const url = "https://bettercotton.org/find-members/";
     // open the headless browser
     var browser = await puppeteer.launch({
-      headless: false,
-      executablePath: "/opt/homebrew/bin/chromium",
+      headless: true,
     });
     // open a new page
     var page = await browser.newPage();
@@ -26,26 +26,14 @@ const betterCotton = new Promise(async (resolve, reject) => {
         var companyList = document.querySelectorAll("h3.card-title");
         var CompanyArray = [];
         for (var i = 0; i < companyList.length; i++) {
-          CompanyArray[i] = {
+          certificate.companies.push({
             companyName: companyList[i].innerText.trim(),
-          };
+          });
         }
         return CompanyArray;
       });
       companies = companies.concat(company);
     }
-    // var company = await page.evaluate(() => {
-    //   var companyList = document.querySelectorAll("h3.card-title");
-    //   var CompanyArray = [];
-    //   for (var i = 0; i < companyList.length; i++) {
-    //     CompanyArray[i] = {
-    //       companyName: companyList[i].innerText.trim(),
-    //     };
-    //   }
-    //   return CompanyArray;
-    // });
-    // companies = companies.concat(company);
-    //console.dir(company);
     await browser.close();
     return resolve(companies);
 
